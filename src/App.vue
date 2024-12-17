@@ -1,12 +1,15 @@
 <template>
     <div class="app">
         <h1>你好啊！</h1>
+        <Person></Person>
     </div>
 </template>
 
 <script>
+import Person from './components/Person.vue'
 export default {
-    name: 'App'
+    name: 'App',
+    components: {Person}
 }
 </script>
 
