@@ -11,23 +11,25 @@
 <script>
 export default {
     name: 'Person',
-    data() {
-        return {
-            name: '张三',
-            age: 18,
-            tel: '13888888888'
+    setup(){
+        // console.log(this); // setup函数中的this是undefined，vue3弱化this
+        
+        // 数据，不是响应式的数据
+        let name = '张三'
+        let age = 20
+        let tel = '13888888888'
+        // 方法，不是响应式数据，修改后页面没变化
+        function showTel(){
+            alert(tel)
         }
-    },
-    methods: {
-        showTel() {
-            alert(this.tel)
-        },
-        changeAge() {
-            this.age += 1
-        },
-        changeName() {
-            this.name = 'Zhangsan'
+        function changeAge(){
+            age += 1
         }
+        function changeName(){
+            name = 'Zhangsan'
+        }
+        
+        return {name, age, showTel, changeAge, changeName}
     }
 }
 </script>
