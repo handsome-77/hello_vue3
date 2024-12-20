@@ -29,7 +29,11 @@ export default {
             name = 'Zhangsan'
         }
         
+        // 将数据和方法交出去，模板中才可以使用
         return {name, age, showTel, changeAge, changeName}
+
+        // setup的返回值也可以是一个渲染函数（类似lambda表达式）
+        // return ()=>'哈哈'
     }
 }
 </script>
