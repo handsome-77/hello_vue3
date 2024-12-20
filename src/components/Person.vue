@@ -5,12 +5,31 @@
         <button @click="showTel">查看电话</button>
         <button @click="changeName">修改姓名</button>
         <button @click="changeAge">修改年龄</button>
+        <hr>
+        <h2>测试1：{{ a }}</h2>
+        <h2>测试2：{{ c }}</h2>
+        <h3>测试3：{{ d }}</h3>
+        <button @click="b">测试</button>
     </div>
 </template>
 
 <script>
 export default {
     name: 'Person',
+    data(){
+        return{
+            a:100,
+            c:this.name,
+            d:900,
+            age:90
+        }
+    },
+    methods:{
+        b(){
+            console.log('b')
+        }
+    },
+
     setup(){
         // console.log(this); // setup函数中的this是undefined，vue3弱化this
         
