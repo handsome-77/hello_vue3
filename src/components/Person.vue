@@ -11,22 +11,24 @@
 <script setup>
 // vue3.2新特性，不用插件，可以定义component的name
 defineOptions({
-    name: 'person234'
+    name: 'Person'
 })
 
+import {ref} from 'vue'
+
 // 数据，不是响应式的数据
-let name = '张三'
-let age = 20
+let name = ref('张三')
+let age = ref(20)
 let tel = '13888888888'
 // 方法，不是响应式数据，修改后页面没变化
 function showTel() {
     alert(tel)
 }
 function changeAge() {
-    age += 1
+    age.value += 1
 }
 function changeName() {
-    name = 'Zhangsan'
+    name.value = 'Zhangsan'
 }
 </script>
 
