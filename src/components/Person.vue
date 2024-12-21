@@ -5,55 +5,28 @@
         <button @click="showTel">查看电话</button>
         <button @click="changeName">修改姓名</button>
         <button @click="changeAge">修改年龄</button>
-        <hr>
-        <h2>测试1：{{ a }}</h2>
-        <h2>测试2：{{ c }}</h2>
-        <h3>测试3：{{ d }}</h3>
-        <button @click="b">测试</button>
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Person',
-    data(){
-        return{
-            a:100,
-            c:this.name,
-            d:900,
-            age:90
-        }
-    },
-    methods:{
-        b(){
-            console.log('b')
-        }
-    },
+<script setup>
+// vue3.2新特性，不用插件，可以定义component的name
+defineOptions({
+    name: 'person234'
+})
 
-    setup(){
-        // console.log(this); // setup函数中的this是undefined，vue3弱化this
-        
-        // 数据，不是响应式的数据
-        let name = '张三'
-        let age = 20
-        let tel = '13888888888'
-        // 方法，不是响应式数据，修改后页面没变化
-        function showTel(){
-            alert(tel)
-        }
-        function changeAge(){
-            age += 1
-        }
-        function changeName(){
-            name = 'Zhangsan'
-        }
-        
-        // 将数据和方法交出去，模板中才可以使用
-        return {name, age, showTel, changeAge, changeName}
-
-        // setup的返回值也可以是一个渲染函数（类似lambda表达式）
-        // return ()=>'哈哈'
-    }
+// 数据，不是响应式的数据
+let name = '张三'
+let age = 20
+let tel = '13888888888'
+// 方法，不是响应式数据，修改后页面没变化
+function showTel() {
+    alert(tel)
+}
+function changeAge() {
+    age += 1
+}
+function changeName() {
+    name = 'Zhangsan'
 }
 </script>
 
