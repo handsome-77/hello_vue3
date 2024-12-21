@@ -1,35 +1,40 @@
 <template>
     <div class="person">
-        <h2>姓名： {{ name }}</h2>
-        <h2>年龄： {{ age }}</h2>
-        <button @click="showTel">查看电话</button>
-        <button @click="changeName">修改姓名</button>
-        <button @click="changeAge">修改年龄</button>
+        <h2>一辆{{ car.brand }}车，价值{{ car.price }}万</h2>
+        <button @click="changePrice">修改汽车价格</button>
+        <br>
+        <h2>游戏列表：</h2>
+        <ul>
+            <li v-for="g in games" :key="g.id">{{ g.name }}</li>
+        </ul>
+        <button @click="changeFirstGame">修改第一个游戏名</button>
     </div>
 </template>
 
 <script setup>
+import { reactive } from 'vue';
+
 // vue3.2新特性，不用插件，可以定义component的name
 defineOptions({
     name: 'Person'
 })
+// 数据
+let car = reactive({ brand: '奔驰', price: 100 })
+let games = reactive([
+    { id: 'gameid01', name: 'game01' },
+    { id: 'gameid02', name: 'game02' },
+    { id: 'gameid03', name: 'game03' }
+])
 
-import {ref} from 'vue'
+// 方法
+function changePrice() {
+    car.price += 10
+}
 
-// 数据，不是响应式的数据
-let name = ref('张三')
-let age = ref(20)
-let tel = '13888888888'
-// 方法，不是响应式数据，修改后页面没变化
-function showTel() {
-    alert(tel)
+function changeFirstGame(){
+    games[0].name = 'changed game name'
 }
-function changeAge() {
-    age.value += 1
-}
-function changeName() {
-    name.value = 'Zhangsan'
-}
+
 </script>
 
 <style scoped>
@@ -42,5 +47,9 @@ function changeName() {
 
 button {
     margin: 0 5px;
+}
+
+li {
+    font-size: 20px;
 }
 </style>
