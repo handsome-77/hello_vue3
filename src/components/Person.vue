@@ -1,35 +1,44 @@
 <template>
     <div class="person">
-        <h2>姓名：{{ name }}</h2>
-        <h2>年龄：{{ age }}</h2>
-        <button @click="changeName">修改姓名</button>
-        <button @click="changeAge">修改年龄</button>
+        姓：<input type="text" v-model="firstName"><br>
+        名：<input type="text" v-model="lastName"><br>
+        <button @click="changeName">将全名改为li-si</button>
+        姓名：<span>{{ fullName }}</span> <br>
     </div>
 </template>
 
 <script setup>
-import { reactive, toRef, toRefs } from 'vue';
+import { ref,computed } from 'vue';
 
 // vue3.2新特性，不用插件，可以定义component的name
 defineOptions({
     name: 'Person'
 })
-let person = reactive({
-    name: '张三',
-    age: 18
+
+let firstName = ref('zhang')
+let lastName = ref('san')
+
+// fullName是一个计算属性，只读不可修改
+// let fullName = computed(()=>{
+//     return firstName.value.slice(0,1).toUpperCase() + firstName.value.slice(1)
+//         + lastName.value
+// })
+
+// 这么定义的fullName是一个计算属性，可读可写
+let fullName = computed({
+    get(){
+        return firstName.value.slice(0,1).toUpperCase() + firstName.value.slice(1)
+                + lastName.value
+    },
+    set(val){
+        const [str1, str2] = val.split('-')
+        firstName.value = str1
+        lastName.value = str2
+    }
 })
 
-let {name, age} = toRefs(person)
-let nl = toRef(person, 'age')
-
 function changeName(){
-    name.value += '~'
-    console.log(name.value, person.name)
-}
-
-function changeAge(){
-    age.value += 1
-    console.log(age.value, person.age, nl.value)
+    fullName.value = 'li-si'
 }
 
 </script>
