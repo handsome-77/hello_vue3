@@ -12,15 +12,15 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 
 // vue3.2新特性，不用插件，可以定义component的name
 defineOptions({
     name: 'Person'
 })
 // 数据
-let car = reactive({ brand: '奔驰', price: 100 })
-let games = reactive([
+let car = ref({ brand: '奔驰', price: 100 })
+let games = ref([
     { id: 'gameid01', name: 'game01' },
     { id: 'gameid02', name: 'game02' },
     { id: 'gameid03', name: 'game03' }
@@ -28,11 +28,11 @@ let games = reactive([
 
 // 方法
 function changePrice() {
-    car.price += 10
+    car.value.price += 10
 }
 
 function changeFirstGame(){
-    games[0].name = 'changed game name'
+    games.value[0].name = 'changed game name'
 }
 
 </script>
