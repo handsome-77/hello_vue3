@@ -2,12 +2,10 @@
     <div class="person">
         <h2>一辆{{ car.brand }}车，价值{{ car.price }}万</h2>
         <button @click="changePrice">修改汽车价格</button>
-        <br>
-        <h2>游戏列表：</h2>
-        <ul>
-            <li v-for="g in games" :key="g.id">{{ g.name }}</li>
-        </ul>
-        <button @click="changeFirstGame">修改第一个游戏名</button>
+        <button @click="changeBrand">修改汽车名</button>
+        <button @click="changeCar">修改汽车</button>
+        <h2>总和：{{ sum }}</h2>
+        <button @click="changeSum">修改总和</button>
     </div>
 </template>
 
@@ -19,20 +17,32 @@ defineOptions({
     name: 'Person'
 })
 // 数据
+// let car = reactive({ brand: '奔驰', price: 100 })
 let car = ref({ brand: '奔驰', price: 100 })
-let games = ref([
-    { id: 'gameid01', name: 'game01' },
-    { id: 'gameid02', name: 'game02' },
-    { id: 'gameid03', name: 'game03' }
-])
+let sum = ref(0)
 
 // 方法
 function changePrice() {
-    car.value.price += 10
+    // car.price += 10 // reactive
+    car.value.price += 10 // ref
 }
 
-function changeFirstGame(){
-    games.value[0].name = 'changed game name'
+function changeBrand(){
+    // car.brand = '宝马' // reactive
+    car.value.brand = '宝马' // ref
+}
+
+function changeCar(){
+    // car = {brand:'奥拓', price:1} // 不更新
+    // car = reactive({brand:'奥拓', price:1}) // 不更新
+
+    // 更新
+    Object.assign(car, {brand:'奥拓', price:1}) // reactive
+    car.value = {brand:'奥拓', price:1} // ref
+}
+
+function changeSum(){
+    sum.value += 1
 }
 
 </script>
