@@ -1,6 +1,6 @@
 <template>
     <div class="person">
-        <h1>情况4：监视响应式对象中的某个属性</h1>
+        <h1>情况5：监视上述的多个数据</h1>
         <h2>姓名：{{ person.name }}</h2>
         <h2>年龄：{{ person.age }}</h2>
         <h2>汽车：{{ person.car.c1 }}、{{ person.car.c2 }}</h2>
@@ -51,13 +51,8 @@ function changeC2() {
     person.car.c2 = '大众'
 }
 
-// 监视，情况4：监视响应式对象中的某个属性，且该属性是基本类型的，要写成函数式
-/* watch(()=>person.name, (newValue, oldValue)=>{
-    console.log("person.name变化了", oldValue, newValue);
-}) */
-
-// 监视，情况4：监视响应式对象中的某个属性，且该属性是对象类型的，可以直接写，也能写成函数式，推荐写成函数式，手动开启深度监视
-watch(()=>person.car, (oldValue, newValue)=>{
+// 监视，情况5：监视上述的多个数据
+watch([()=>person.name, person.car], (oldValue, newValue)=>{
     console.log("person.car变化了", oldValue, newValue);
 }, {deep: true})
 
