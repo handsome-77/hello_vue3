@@ -1,19 +1,15 @@
 <template>
     <div class="person">
-        <h1>情况5：监视上述的多个数据</h1>
-        <h2>姓名：{{ person.name }}</h2>
-        <h2>年龄：{{ person.age }}</h2>
-        <h2>汽车：{{ person.car.c1 }}、{{ person.car.c2 }}</h2>
-        <button @click="changeName">修改名字</button>
-        <button @click="changeAge">修改年龄</button>
-        <button @click="changeCar">修改汽车</button>
-        <button @click="changeC1">修改第一辆车</button>
-        <button @click="changeC2">修改第二辆车</button>
+        <h2>需求：当前水温达到60度，或水位达到80cm时，给服务器发请求</h2>
+        <h2>当前水温：{{ temp }}℃</h2>
+        <h2>当前水位：{{ height }}cm</h2>
+        <button @click="changeTemp">水温+10</button>
+        <button @click="changeHeight">水位+10</button>
     </div>
 </template>
 
 <script setup>
-import { reactive, watch } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 
 // vue3.2新特性，不用插件，可以定义component的name
 defineOptions({
@@ -21,40 +17,32 @@ defineOptions({
 })
 
 // 数据
-let person = reactive({
-    name: '张三',
-    age: 18,
-    car: {
-        c1: '奔驰',
-        c2: '宝马'
-    }
-})
+let temp = ref(10)
+let height = ref(0)
 
 // 方法
-function changeName() {
-    person.name += '~'
+function changeTemp() {
+    temp.value += 10
+}
+function changeHeight() {
+    height.value += 10
 }
 
-function changeAge() {
-    person.age += 1
-}
+// 监视
+/* watch([temp, height], (value) => {
+    // 从value中获取最新的水温和最新的水位
+    let [newTemp, newHeight] = value
+    // 逻辑
+    if (newTemp >= 60 || newHeight >= 80) {
+        console.log("给服务器发请求");
+    }
+}) */
 
-function changeCar() {
-    person.car = { c1: '雅迪', c2: '艾玛' }
-}
-
-function changeC1() {
-    person.car.c1 = '奥迪'
-}
-
-function changeC2() {
-    person.car.c2 = '大众'
-}
-
-// 监视，情况5：监视上述的多个数据
-watch([()=>person.name, person.car], (oldValue, newValue)=>{
-    console.log("person.car变化了", oldValue, newValue);
-}, {deep: true})
+watchEffect(() => {
+    if (temp.value >= 60 || height.value >= 80) {
+        console.log("给服务器发请求");
+    }
+})
 
 </script>
 
