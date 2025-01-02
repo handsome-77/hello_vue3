@@ -1,48 +1,32 @@
 <template>
     <div class="person">
-        <h2>需求：当前水温达到60度，或水位达到80cm时，给服务器发请求</h2>
-        <h2>当前水温：{{ temp }}℃</h2>
-        <h2>当前水位：{{ height }}cm</h2>
-        <button @click="changeTemp">水温+10</button>
-        <button @click="changeHeight">水位+10</button>
+        <h1>中国</h1>
+        <h2 ref="title2">广东</h2>
+        <h3>广州</h3>
+        <button @click="showH2">点击输出h2元素</button>
     </div>
 </template>
 
 <script setup>
-import { ref, watch, watchEffect } from 'vue';
+import { ref } from 'vue';
 
 // vue3.2新特性，不用插件，可以定义component的name
 defineOptions({
     name: 'Person'
 })
 
-// 数据
-let temp = ref(10)
-let height = ref(0)
+// 创建一个title2，用于存储ref标记的内容
+let title2 = ref()
 
-// 方法
-function changeTemp() {
-    temp.value += 10
+let a = ref(0)
+let b = ref(1)
+let c = ref(2)
+
+function showH2(){
+    console.log(title2.value);
 }
-function changeHeight() {
-    height.value += 10
-}
 
-// 监视
-/* watch([temp, height], (value) => {
-    // 从value中获取最新的水温和最新的水位
-    let [newTemp, newHeight] = value
-    // 逻辑
-    if (newTemp >= 60 || newHeight >= 80) {
-        console.log("给服务器发请求");
-    }
-}) */
-
-watchEffect(() => {
-    if (temp.value >= 60 || height.value >= 80) {
-        console.log("给服务器发请求");
-    }
-})
+defineExpose({a,b})
 
 </script>
 
