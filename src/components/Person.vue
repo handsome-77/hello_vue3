@@ -1,15 +1,12 @@
 <template>
     <div class="person">
-        <ul>
-            <li v-for="x in list" :key="x.id">
-                {{x.name}}-{{ x.age }}
-            </li>
-        </ul>
+        <h2>{{ sum }}</h2>
+        <button @click="add">点击sum+1</button>
     </div>
 </template>
 
 <script lang="ts" setup>
-import type { PersonInter, Persons } from '@/types';
+import { onBeforeMount, onBeforeUnmount, onBeforeUpdate, onMounted, onUnmounted, onUpdated, ref } from 'vue';
 
 
 // vue3.2新特性，不用插件，可以定义component的name
@@ -17,21 +14,46 @@ defineOptions({
     name: 'Person'
 })
 
-// 只接收a和list
-// defineProps(['a', 'list'])
+// 数据
+let sum = ref(0)
 
-// 接收a，同时将props保存起来
-/* let x = defineProps(['a'])
-console.log(x.a); */
+// 方法
+function add() {
+    sum.value += 1
+}
 
-// 接收list+限制类型
-// defineProps<{list:Persons}>()
+// 创建
+console.log('创建')
 
-// 接收list+限制类型+限制必要性+指定默认值
-withDefaults(defineProps<{list?:Persons}>(),{
-    list:()=>[{id:'5555', name:'hhh', age:22}]
+// 挂载前
+onBeforeMount(() => {
+    console.log('挂载前')
 })
 
+// 挂载完毕
+onMounted(() => {
+    console.log('子--挂载完毕')
+})
+
+// 更新前
+onBeforeUpdate(() => {
+    console.log('更新前')
+})
+
+// 更新完毕
+onUpdated(() => {
+    console.log('更新完毕')
+})
+
+// 卸载前
+onBeforeUnmount(()=>{
+    console.log('卸载前')
+})
+
+// 卸载完毕
+onUnmounted(()=>{
+    console.log('卸载完毕')
+})
 </script>
 
 <style scoped>
