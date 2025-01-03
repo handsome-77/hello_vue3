@@ -1,32 +1,25 @@
 <template>
     <div class="person">
-        <h1>中国</h1>
-        <h2 ref="title2">广东</h2>
-        <h3>广州</h3>
-        <button @click="showH2">点击输出h2元素</button>
+        ？？？
     </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script lang="ts" setup>
+import type { PersonInter, Persons } from '@/types';
+
 
 // vue3.2新特性，不用插件，可以定义component的name
 defineOptions({
     name: 'Person'
 })
 
-// 创建一个title2，用于存储ref标记的内容
-let title2 = ref()
+let person:PersonInter = {id:'1111', name:'hhhh', age:20}
 
-let a = ref(0)
-let b = ref(1)
-let c = ref(2)
-
-function showH2(){
-    console.log(title2.value);
-}
-
-defineExpose({a,b})
+let personList:Persons = [
+    {id:'222', name:'jjj', age:21},
+    {id:'333', name:'kkk', age:22},
+    {id:'444', name:'lll', age:23}
+]
 
 </script>
 
