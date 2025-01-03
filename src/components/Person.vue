@@ -1,6 +1,10 @@
 <template>
     <div class="person">
-        ？？？
+        <ul>
+            <li v-for="x in list" :key="x.id">
+                {{x.name}}-{{ x.age }}
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -13,13 +17,20 @@ defineOptions({
     name: 'Person'
 })
 
-let person:PersonInter = {id:'1111', name:'hhhh', age:20}
+// 只接收a和list
+// defineProps(['a', 'list'])
 
-let personList:Persons = [
-    {id:'222', name:'jjj', age:21},
-    {id:'333', name:'kkk', age:22},
-    {id:'444', name:'lll', age:23}
-]
+// 接收a，同时将props保存起来
+/* let x = defineProps(['a'])
+console.log(x.a); */
+
+// 接收list+限制类型
+// defineProps<{list:Persons}>()
+
+// 接收list+限制类型+限制必要性+指定默认值
+withDefaults(defineProps<{list?:Persons}>(),{
+    list:()=>[{id:'5555', name:'hhh', age:22}]
+})
 
 </script>
 

@@ -2,7 +2,7 @@
 export interface PersonInter { //分别暴露
     id: string,
     name: string,
-    age: number
+    age: number,
 }
 
 // 一个自定义类型
