@@ -1,59 +1,25 @@
 <template>
     <div class="person">
-        <h2>{{ sum }}</h2>
+        <h2>当前sum：{{ sum }}，放大10倍后是：{{ bigSum }}</h2>
         <button @click="add">点击sum+1</button>
+        <hr>
+        <img v-for="(dog, index) in dogList" :src="dog" :key="index">
+        <button @click="getDog">随机生成一张图</button>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount, onBeforeUnmount, onBeforeUpdate, onMounted, onUnmounted, onUpdated, ref } from 'vue';
-
-
 // vue3.2新特性，不用插件，可以定义component的name
 defineOptions({
     name: 'Person'
 })
 
-// 数据
-let sum = ref(0)
+import useDog from '@/hooks/userDog';
+import useSum from '@/hooks/useSum';
 
-// 方法
-function add() {
-    sum.value += 1
-}
+const{sum, add, bigSum} = useSum()
+const{dogList, getDog} = useDog()
 
-// 创建
-console.log('创建')
-
-// 挂载前
-onBeforeMount(() => {
-    console.log('挂载前')
-})
-
-// 挂载完毕
-onMounted(() => {
-    console.log('子--挂载完毕')
-})
-
-// 更新前
-onBeforeUpdate(() => {
-    console.log('更新前')
-})
-
-// 更新完毕
-onUpdated(() => {
-    console.log('更新完毕')
-})
-
-// 卸载前
-onBeforeUnmount(()=>{
-    console.log('卸载前')
-})
-
-// 卸载完毕
-onUnmounted(()=>{
-    console.log('卸载完毕')
-})
 </script>
 
 <style scoped>
@@ -70,5 +36,10 @@ button {
 
 li {
     font-size: 20px;
+}
+
+img {
+    height: 100px;
+    margin: 10px;
 }
 </style>
