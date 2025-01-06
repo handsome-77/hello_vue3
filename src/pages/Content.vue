@@ -1,13 +1,29 @@
 <template>
-    <div>
+    <div class="news">
+        <!-- 导航区 -->
         <ul>
-            <li v-for="item in 3">新闻{{ item }}</li>
+            <li v-for="news in newsList" :key="news.id">
+                <RouterLink :to="{name:'xiangqing'}">{{ news.title }}</RouterLink>
+            </li>
         </ul>
+        <!-- 展示区 -->
+         <div class="news-content">
+            <RouterView></RouterView>
+         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
+import { reactive } from 'vue';
+import { RouterLink } from 'vue-router';
+
 defineOptions({
     name: 'Content'
 })
+
+const newsList = reactive([
+    {id:'111', title:'新闻1', content:'新闻内容1'},
+    {id:'222', title:'新闻2', content:'新闻内容2'},
+    {id:'333', title:'新闻3', content:'新闻内容3'}
+])
 </script>
