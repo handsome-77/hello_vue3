@@ -9,7 +9,7 @@
                 <!-- 第二种写法 -->
                 <RouterLink :to="{
                     name: 'xiangqing',
-                    params: {
+                    query: {
                         id: news.id,
                         title: news.title,
                         content: news.content
