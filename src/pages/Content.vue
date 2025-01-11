@@ -3,13 +3,24 @@
         <!-- 导航区 -->
         <ul>
             <li v-for="news in newsList" :key="news.id">
-                <RouterLink :to="{name:'xiangqing'}">{{ news.title }}</RouterLink>
+                <!-- 第一种写法 -->
+                <!-- <RouterLink :to="`/content/detail?id=${news.id}&title=${news.title}&content=${news.content}`">{{ news.title }}</RouterLink> -->
+
+                <!-- 第二种写法 -->
+                <RouterLink :to="{
+                    name: 'xiangqing',
+                    query: {
+                        id: news.id,
+                        title: news.title,
+                        content: news.content
+                    }
+                }">{{ news.title }}</RouterLink>
             </li>
         </ul>
         <!-- 展示区 -->
-         <div class="news-content">
+        <div class="news-content">
             <RouterView></RouterView>
-         </div>
+        </div>
     </div>
 </template>
 
@@ -22,8 +33,8 @@ defineOptions({
 })
 
 const newsList = reactive([
-    {id:'111', title:'新闻1', content:'新闻内容1'},
-    {id:'222', title:'新闻2', content:'新闻内容2'},
-    {id:'333', title:'新闻3', content:'新闻内容3'}
+    { id: '111', title: '新闻1', content: '新闻内容1' },
+    { id: '222', title: '新闻2', content: '新闻内容2' },
+    { id: '333', title: '新闻3', content: '新闻内容3' }
 ])
 </script>
