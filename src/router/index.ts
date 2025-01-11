@@ -23,7 +23,7 @@ const router = createRouter({
             children:[
                 {
                     name: 'xiangqing',
-                    path: 'detail',
+                    path: 'detail/:id/:title/:content?', // ?表示可传可不传参数
                     component: Detail
                 }
             ]
