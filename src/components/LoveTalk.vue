@@ -18,6 +18,10 @@ defineOptions({
 const talkStore = useTalktStore()
 const {talkList} = storeToRefs(talkStore)
 
+talkStore.$subscribe((mutate, state)=>{
+    localStorage.setItem('talkList', JSON.stringify(state.talkList))
+})
+
 // 方法
 function getLoveTalk() {
     talkStore.getTalk()
