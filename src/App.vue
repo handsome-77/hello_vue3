@@ -1,70 +1,41 @@
 <template>
 	<div class="app">
-		<h2>当前sum1为：{{ sum1 }}</h2>
-		<h2>当前sum2为：{{ sum2 }}</h2>
-		<h2>当前汽车car1为：{{ car1 }}</h2>
-		<h2>当前汽车car2为：{{ car2 }}</h2>
-		<button @click="changeSum1">sum1+1</button>
-		<button @click="changeSum2">sum2+1</button>
-		<button @click="changeBrand1">修改品牌(car1)</button>
-		<button @click="changeColor1">修改颜色(car1)</button>
-		<button @click="changePrice1">修改价格(car1)</button>
-		<button @click="changeBrand2">修改品牌(car2)</button>
-		<button @click="changeColor2">修改颜色(car2)</button>
-		<button @click="changePrice2">修改价格(car2)</button>
+		<h2>姓名：{{ person.name }}</h2>
+		<h2>年龄：{{ person.age }}</h2>
+		<button @click="changeAge">修改年龄</button>
+		<hr>
+		<h2>汽车为：{{ car2 }}</h2>
+		<button @click="car2.price += 10">汽车价格+10</button>
 	</div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, readonly, ref, shallowReadonly } from 'vue';
+import { markRaw, reactive, toRaw } from 'vue';
+
 
 defineOptions({
 	name: 'App'
 })
 
-let sum1 = ref(0)
-let sum2 = readonly(sum1)
-
-let car1 = reactive({
-	brand: '奔驰',
-	options: {
-		color: '红色',
-		price: 100
-	}
+/* toRaw */
+let person = reactive({
+	name: 'tony',
+	age: 18
 })
-let car2 = shallowReadonly(car1)
 
-function changeSum1() {
-	sum1.value += 1
+// 用于获取一个响应式对象的原始对象
+let rawPerson = toRaw(person)
+// console.log('响应式对象', person);
+// console.log('原始对象', rawPerson);
+
+function changeAge() {
+	person.age += 1
 }
 
-function changeSum2() {
-	sum2.value += 2 // sum2不能修改
-}
+/* markRaw */
+let car = markRaw({ brand: '奔驰', price: 100 })
+let car2 = reactive(car)
 
-function changeBrand1() {
-	car1.brand = '宝马'
-}
-
-function changeColor1() {
-	car1.options.color = '绿色'
-}
-
-function changePrice1() {
-	car1.options.price = 200
-}
-
-function changeBrand2() {
-	car2.brand = '宝马'
-}
-
-function changeColor2() {
-	car2.options.color = '绿色'
-}
-
-function changePrice2() {
-	car2.options.price = 200
-}
 
 </script>
 
