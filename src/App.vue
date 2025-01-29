@@ -1,77 +1,69 @@
 <template>
 	<div class="app">
-		<h2>求和为：{{ sum }}</h2>
-		<h2>名字为：{{ person.name }}</h2>
-		<h2>年龄为：{{ person.age }}</h2>
-		<h2>汽车为：{{ car }}</h2>
-		<button @click="changeSum">sum+1</button>
-		<button @click="changeName">修改名字</button>
-		<button @click="changeAge">修改年龄</button>
-		<button @click="changePerson">修改整个人</button>
-		<br>
-		<button @click="changeBrand">修改品牌</button>
-		<button @click="changeColor">修改颜色</button>
-		<button @click="changeEngine">修改发动机</button>
-		<button @click="changeCar">修改汽车</button>
+		<h2>当前sum1为：{{ sum1 }}</h2>
+		<h2>当前sum2为：{{ sum2 }}</h2>
+		<h2>当前汽车car1为：{{ car1 }}</h2>
+		<h2>当前汽车car2为：{{ car2 }}</h2>
+		<button @click="changeSum1">sum1+1</button>
+		<button @click="changeSum2">sum2+1</button>
+		<button @click="changeBrand1">修改品牌(car1)</button>
+		<button @click="changeColor1">修改颜色(car1)</button>
+		<button @click="changePrice1">修改价格(car1)</button>
+		<button @click="changeBrand2">修改品牌(car2)</button>
+		<button @click="changeColor2">修改颜色(car2)</button>
+		<button @click="changePrice2">修改价格(car2)</button>
 	</div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, shallowReactive, shallowRef } from 'vue';
+import { reactive, readonly, ref, shallowReadonly } from 'vue';
 
 defineOptions({
 	name: 'App'
 })
 
-let sum = shallowRef(0)
-let person = shallowRef({
-	name: '张三',
-	age: 18
-})
-let car = shallowReactive({
-	brand:'奔驰',
-	options:{
-		color:'红色',
-		engine:'V8'
+let sum1 = ref(0)
+let sum2 = readonly(sum1)
+
+let car1 = reactive({
+	brand: '奔驰',
+	options: {
+		color: '红色',
+		price: 100
 	}
 })
+let car2 = shallowReadonly(car1)
 
-function changeSum() {
-	sum.value += 1
+function changeSum1() {
+	sum1.value += 1
 }
 
-function changeName() {
-	person.value.name = '李四'
+function changeSum2() {
+	sum2.value += 2 // sum2不能修改
 }
 
-function changeAge() {
-	person.value.age = 20
+function changeBrand1() {
+	car1.brand = '宝马'
 }
 
-function changePerson() {
-	person.value = { name: '王五', age: 18 }
+function changeColor1() {
+	car1.options.color = '绿色'
 }
 
-function changeBrand(){
-car.brand = '宝马'
+function changePrice1() {
+	car1.options.price = 200
 }
 
-function changeColor(){
-car.options.color='紫色'
+function changeBrand2() {
+	car2.brand = '宝马'
 }
 
-function changeEngine(){
-car.options.engine='V9'
+function changeColor2() {
+	car2.options.color = '绿色'
 }
 
-function changeCar(){
-Object.assign(car,{
-	brand:'奥迪',
-	options:{
-		color:'银色',
-		engine:'V10'
-	}
-})
+function changePrice2() {
+	car2.options.price = 200
 }
 
 </script>
@@ -84,7 +76,7 @@ Object.assign(car,{
 	padding: 10px;
 }
 
-button{
-	margin: 0px 0px 0px 10px;
+button {
+	margin: 0 0 0 10px;
 }
 </style>
