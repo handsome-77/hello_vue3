@@ -1,36 +1,32 @@
 <template>
-	<div class="app">
-		<h2>{{ msg }}</h2>
-		<input type="text" v-model="msg">
-	</div>
+    <div class="outer">
+        <h2>我是App组件</h2>
+        <img src="https://search-operate.cdn.bcebos.com/4466f881476a1ee804b4a32aee790675.gif" alt="">
+        <br>
+        <Modal/>
+    </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import useMsgRef from './useMsgRef';
-
 defineOptions({
-	name: 'App'
+    name: 'App'
 })
-
-// 使用Vue提供的默认ref定义响应式数据，数据一变，页面就更新
-// let msg = ref('你好')
-
-// 使用useMsgRef来定义一个响应式数据且有延迟效果
-let { msg } = useMsgRef('哈哈', 2000)
-
+import Modal from './Modal.vue';
 
 </script>
 
 <style scoped>
-.app {
-	background-color: #ddd;
-	border-radius: 10px;
-	box-shadow: 0 0 10px;
-	padding: 10px;
+.outer {
+    background-color: #ddd;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 0 10px;
+    width: 400px;
+    height: 400px;
+    filter: saturate(180%);
 }
 
-button {
-	margin: 0 0 0 10px;
+img {
+    width: 180px;
 }
 </style>
